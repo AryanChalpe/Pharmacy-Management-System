@@ -1,0 +1,395 @@
+:root {
+  /* User Custom Palette */
+  --skin-tone: #F5E7C6;
+  --palette-orange: #fb923c;
+  --palette-dark: #1e293b;
+  --palette-light: #fffbeb;
+
+  /* Mapped Variables */
+  --primary: var(--palette-dark);
+  --secondary: #64748b;
+
+  --success: #ea580c;
+  /* Deep Orange for Sales Actions */
+  --success-dark: #c2410c;
+
+  --warning: #f59e0b;
+  --warning-dark: #d97706;
+
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+
+  --purple: var(--palette-dark);
+  --purple-dark: #0f172a;
+
+  --background: var(--skin-tone);
+  --surface: #ffffff;
+
+  --text-main: #1e293b;
+  --text-light: #475569;
+  --border: #e2e8f0;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--skin-tone);
+  /* Strict Skin Color */
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header & Typography */
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #9a3412;
+  /* Deep Rust/Orange-Brown for contrast */
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: #fff7ed;
+  /* Warm Cream to match Skin Tone */
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: var(--shadow-sm);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Updated Button Colors - Unified Style */
+.btn-sales,
+.btn-suppliers,
+.btn-billing,
+.btn-add,
+.btn-logout {
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+  /* Unified Orange Gradient */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary {
+  background: #ea580c;
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+}
+
+.btn-edit {
+  background: #eff6ff;
+  color: var(--primary);
+}
+
+.btn-edit:hover {
+  background: #dbeafe;
+}
+
+.btn-sell {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.btn-sell:hover {
+  background: #ffedd5;
+}
+
+.btn-delete {
+  background: #fef2f2;
+  color: var(--danger);
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+}
+
+/* Table */
+.table-container {
+  background: var(--surface);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8fafc;
+  padding: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.table td {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.table tr {
+  transition: background 0.15s;
+}
+
+.table tr:hover {
+  background: #f8fafc;
+}
+
+/* Badges */
+.badge {
+  padding: 0.35em 0.8em;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-success {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.badge-warning {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Forms */
+.input-group {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  background: #f9fafb;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--palette-orange);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.1);
+}
+
+.search-bar {
+  max-width: 400px;
+  border-radius: 2rem;
+  padding-left: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-dropdown {
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  border-radius: 2rem;
+  background-color: white;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  min-width: 160px;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: var(--palette-orange);
+  box-shadow: 0 0 0 2px rgba(251, 146, 60, 0.1);
+}
+
+.table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.table th.sortable:hover {
+  color: var(--palette-orange);
+  background: #f1f5f9;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Custom Modal Themes */
+/* Sales: Orange Theme Background */
+.modal-sales {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) !important;
+  border: 2px solid #fdba74;
+}
+
+.modal-sales .modal-header h2 {
+  color: #c2410c !important;
+}
+
+/* Suppliers: Match Sales Theme */
+.modal-suppliers {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) !important;
+  border: 2px solid #fdba74;
+}
+
+.modal-suppliers .modal-header h2 {
+  color: #9a3412 !important;
+  /* Deep Rust */
+}
+
+/* Billing: Amber Theme Background */
+.modal-billing {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border: 2px solid #fcd34d;
+}
+
+.modal-billing .modal-header h2 {
+  color: #b45309 !important;
+}
+
+/* Add Medicine: Match Sales Theme */
+.modal-add {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) !important;
+  border: 2px solid #fdba74;
+}
+
+.modal-add .modal-header h2 {
+  color: #9a3412 !important;
+  /* Deep Rust */
+}
+
+.modal {
+  background: var(--surface);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  width: 90%;
+  max-width: 550px;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

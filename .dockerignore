@@ -1,0 +1,12 @@
+.gradle
+build
+bin
+out
+.idea
+.vscode
+frontend
+Dockerfile
+docker-compose.yml
+.git
+.gitignore
+*.md

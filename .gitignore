@@ -1,0 +1,27 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Gradle
+.gradle
+build
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven
+target/
+*.ser
+*.ec
+*.marshalled
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Temp files
+tmp/
