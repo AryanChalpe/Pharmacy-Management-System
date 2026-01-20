@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/medicines")
-@CrossOrigin(origins = "http://localhost:5173")
 public class MedicineController {
 
     @Autowired

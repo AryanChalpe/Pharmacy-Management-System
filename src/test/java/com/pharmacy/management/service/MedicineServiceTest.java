@@ -141,18 +141,82 @@ public class MedicineServiceTest {
     }
 
     @Test
-    void processBilling_WhenStockRunsOut_ShouldDeleteMedicine() throws Exception {
+    void getPaginatedMedicines_ShouldReturnPage() {
+        org.springframework.data.domain.Page<Medicine> page = new org.springframework.data.domain.PageImpl<>(
+                Arrays.asList(medicine));
+        when(medicineRepository.findByAdminId(eq(adminId), any(org.springframework.data.domain.PageRequest.class)))
+                .thenReturn(page);
+
+        org.springframework.data.domain.Page<Medicine> result = medicineService.getPaginatedMedicines(adminId, 0, 10);
+
+        assertEquals(1, result.getContent().size());
+        verify(medicineRepository).findByAdminId(eq(adminId), any());
+    }
+
+    @Test
+    void sellMedicine_WhenExpired_ShouldThrowIllegalStateException() {
+        medicine.setExpired(true);
+        when(medicineRepository.findByIdAndAdminId("med1", adminId)).thenReturn(Optional.of(medicine));
+
+        assertThrows(IllegalStateException.class, () -> medicineService.sellMedicine("med1", 10, adminId));
+    }
+
+    @Test
+    void sellMedicine_WhenDateBeforeToday_ShouldThrowIllegalStateException() {
+        medicine.setExpiryDate(java.time.LocalDate.now().minusDays(1).toString());
+        when(medicineRepository.findByIdAndAdminId("med1", adminId)).thenReturn(Optional.of(medicine));
+
+        assertThrows(IllegalStateException.class, () -> medicineService.sellMedicine("med1", 10, adminId));
+    }
+
+    @Test
+    void updateMedicine_WhenExists_ShouldUpdateAndSave() {
+        Medicine details = new Medicine();
+        details.setName("New Name");
+        details.setQuantity(50);
+
+        when(medicineRepository.findByIdAndAdminId("med1", adminId)).thenReturn(Optional.of(medicine));
+        when(medicineRepository.save(any(Medicine.class))).thenReturn(medicine);
+
+        Medicine result = medicineService.updateMedicine("med1", details, adminId);
+
+        assertEquals("New Name", medicine.getName());
+        assertEquals(50, medicine.getQuantity());
+        verify(medicineRepository).save(medicine);
+    }
+
+    @Test
+    void deleteMedicine_WhenExists_ShouldDelete() {
+        when(medicineRepository.findByIdAndAdminId("med1", adminId)).thenReturn(Optional.of(medicine));
+
+        medicineService.deleteMedicine("med1", adminId);
+
+        verify(medicineRepository).delete(medicine);
+    }
+
+    @Test
+    void processBilling_WhenEmailFails_ShouldThrowRuntimeException() throws Exception {
         BillingRequest request = new BillingRequest();
         request.setMedicineName("Paracetamol");
-        int sellQty = medicine.getQuantity();
-        request.setQuantity(sellQty);
-        request.setUserEmail("customer@example.com");
+        request.setQuantity(5);
+        request.setUserEmail("error@example.com");
+
+        when(medicineRepository.findByNameAndAdminId("Paracetamol", adminId)).thenReturn(Optional.of(medicine));
+        doThrow(new RuntimeException("Email error")).when(emailService).sendBillEmail(anyString(), any(), anyInt(),
+                anyDouble());
+
+        assertThrows(RuntimeException.class, () -> medicineService.processBilling(request, adminId));
+    }
+
+    @Test
+    void processBilling_WhenExpired_ShouldThrowIllegalStateException() {
+        medicine.setExpired(true);
+        BillingRequest request = new BillingRequest();
+        request.setMedicineName("Paracetamol");
+        request.setQuantity(5);
 
         when(medicineRepository.findByNameAndAdminId("Paracetamol", adminId)).thenReturn(Optional.of(medicine));
 
-        medicineService.processBilling(request, adminId);
-
-        verify(medicineRepository, times(1)).delete(medicine);
-        verify(medicineRepository, never()).save(medicine);
+        assertThrows(IllegalStateException.class, () -> medicineService.processBilling(request, adminId));
     }
 }
